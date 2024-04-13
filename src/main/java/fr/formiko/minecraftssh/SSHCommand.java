@@ -21,6 +21,14 @@ public class SSHCommand extends BaseCommand {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.listFiles(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"),
                 commandSender);
     }
+    @Subcommand("lsr")
+    @CommandAlias("lsr")
+    @Description("List files in a directory recursively")
+    @CommandCompletion("@directories @empty")
+    public void lsr(CommandSender commandSender, String directory) {
+        SSHUtils.runAsynchronouslyAndDisplayResult(
+                () -> FLUFiles.listFilesRecursively(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"), commandSender);
+    }
 
     @Subcommand("cp")
     @CommandAlias("cp")
@@ -68,5 +76,37 @@ public class SSHCommand extends BaseCommand {
     @CommandCompletion("@empty")
     public void wget(CommandSender commandSender, String url, String destination) {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.download(url, destination), commandSender);
+    }
+
+    @Subcommand("zip")
+    @CommandAlias("zip")
+    @Description("Zip a file or a directory")
+    @CommandCompletion("@directoriesOrFiles @empty")
+    public void zip(CommandSender commandSender, String source, String destination) {
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.zip(source, destination), commandSender);
+    }
+
+    @Subcommand("unzip")
+    @CommandAlias("unzip")
+    @Description("Unzip a file")
+    @CommandCompletion("@files @empty")
+    public void unzip(CommandSender commandSender, String source, String destination) {
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.unzip(source, destination), commandSender);
+    }
+
+    @Subcommand("size")
+    @CommandAlias("size")
+    @Description("Get the size of a file or a directory")
+    @CommandCompletion("@directoriesOrFiles @boolean @empty")
+    public void size(CommandSender commandSender, String target) {
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> SSHUtils.byteToHumainReadableLenght(FLUFiles.getSize(target)), commandSender);
+    }
+
+    @Subcommand("sizeInBytes")
+    @CommandAlias("sizeInBytes")
+    @Description("Get the size of a file or a directory")
+    @CommandCompletion("@directoriesOrFiles @boolean @empty")
+    public void sizeInBytes(CommandSender commandSender, String target) {
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.getSize(target) + " bytes", commandSender);
     }
 }

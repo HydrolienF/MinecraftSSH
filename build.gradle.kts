@@ -5,7 +5,7 @@ plugins {
 }
 
 group="fr.formiko.minecraftssh"
-version="0.0.2"
+version="0.0.3"
 description="Display banners as flags."
 
 repositories {
@@ -19,7 +19,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.2")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("com.github.FormikoLudo:Utils:0.0.5")
+    implementation("com.github.FormikoLudo:Utils:0.0.6")
 }
 
 java {
