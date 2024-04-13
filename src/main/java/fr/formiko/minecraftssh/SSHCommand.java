@@ -18,8 +18,8 @@ public class SSHCommand extends BaseCommand {
     @Description("List files in a directory")
     @CommandCompletion("@directories @empty")
     public void ls(CommandSender commandSender, String directory) {
-        commandSender.sendMessage(
-                "\n\n" + directory + ": \n" + FLUFiles.listFiles(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"));
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.listFiles(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"),
+                commandSender);
     }
 
     @Subcommand("cp")
@@ -27,11 +27,7 @@ public class SSHCommand extends BaseCommand {
     @Description("Copy a file or a directory recursively")
     @CommandCompletion("@directoriesOrFiles @directories @empty")
     public void cp(CommandSender commandSender, String source, String destination) {
-        if (FLUFiles.copy(source, destination)) {
-            commandSender.sendMessage("File copied");
-        } else {
-            commandSender.sendMessage("File failed to be copied");
-        }
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.copy(source, destination), commandSender);
     }
 
     @Subcommand("mv")
@@ -39,11 +35,7 @@ public class SSHCommand extends BaseCommand {
     @Description("Move a file or a directory")
     @CommandCompletion("@directoriesOrFiles @directories @empty")
     public void mv(CommandSender commandSender, String source, String destination) {
-        if (FLUFiles.move(source, destination)) {
-            commandSender.sendMessage("File moved");
-        } else {
-            commandSender.sendMessage("File failed to be moved");
-        }
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.move(source, destination), commandSender);
     }
 
     @Subcommand("rm")
@@ -51,11 +43,7 @@ public class SSHCommand extends BaseCommand {
     @Description("Remove a file or a directory recursively")
     @CommandCompletion("@directoriesOrFiles @empty")
     public void rm(CommandSender commandSender, String target) {
-        if (FLUFiles.delete(target)) {
-            commandSender.sendMessage("File deleted");
-        } else {
-            commandSender.sendMessage("File failed to be deleted");
-        }
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.delete(target), commandSender);
     }
 
     @Subcommand("mkdir")
@@ -63,17 +51,22 @@ public class SSHCommand extends BaseCommand {
     @Description("Create a directory")
     @CommandCompletion("@directories @empty")
     public void mkdir(CommandSender commandSender, String directory) {
-        if (FLUFiles.createDirectory(directory)) {
-            commandSender.sendMessage("Directory created");
-        } else {
-            commandSender.sendMessage("Directory failed to be created");
-        }
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.createDirectory(directory), commandSender);
     }
 
     @Subcommand("cat")
     @CommandAlias("cat")
     @Description("Display the content of a file")
     @CommandCompletion("@files @empty")
-    public void cat(CommandSender commandSender, String file) { commandSender.sendMessage(FLUFiles.readFile(file)); }
+    public void cat(CommandSender commandSender, String file) {
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.readFile(file), commandSender);
+    }
 
+    @Subcommand("wget")
+    @CommandAlias("wget")
+    @Description("Download a file")
+    @CommandCompletion("@empty")
+    public void wget(CommandSender commandSender, String url, String destination) {
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.download(url, destination), commandSender);
+    }
 }
