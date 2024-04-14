@@ -34,10 +34,6 @@ public class MinecraftSSHPlugin extends JavaPlugin {
      */
     private List<String> getDirectoriesAndFiles(BukkitCommandCompletionContext c, Predicate<? super String> extraFilter, int i) {
         String path = c.getContextValue(String.class, i);
-        System.out.println("contextValue: " + path);
-        if (path.contains(" ")) {
-            path = path.substring(0, path.lastIndexOf(" ") + 1);
-        }
         final String initialPath = path;
         if (path == null || path.isEmpty() || !path.contains("/")) {
             path = ".";
@@ -45,9 +41,8 @@ public class MinecraftSSHPlugin extends JavaPlugin {
             path = path.substring(0, path.lastIndexOf("/") + 1);
         }
         final String finalPath = path.equals(".") ? "" : path;
-        System.out.println("path: " + path);
-        List<String> files = FLUFiles.listFiles(path);
         // return a list of absolute paths by adding the path to the file name
-        return files.stream().map(s -> finalPath + s).filter(s -> s.startsWith(initialPath)).filter(extraFilter).limit(10).toList();
+        return FLUFiles.listFiles(path).stream().map(s -> finalPath + s).filter(s -> s.startsWith(initialPath)).filter(extraFilter)
+                .limit(10).toList();
     }
 }
