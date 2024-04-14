@@ -73,7 +73,7 @@ public class SSHCommand extends BaseCommand {
     @Subcommand("wget")
     @CommandAlias("wget")
     @Description("Download a file")
-    @CommandCompletion("@empty")
+    @CommandCompletion("@empty @directories2 @empty")
     public void wget(CommandSender commandSender, String url, String destination) {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.download(url, destination), commandSender);
     }

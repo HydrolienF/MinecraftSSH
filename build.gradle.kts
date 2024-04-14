@@ -5,7 +5,7 @@ plugins {
 }
 
 group="fr.formiko.minecraftssh"
-version="1.0.2"
+version="1.0.3"
 description="Display banners as flags."
 
 repositories {
