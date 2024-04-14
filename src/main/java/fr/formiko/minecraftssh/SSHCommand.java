@@ -33,7 +33,7 @@ public class SSHCommand extends BaseCommand {
     @Subcommand("cp")
     @CommandAlias("cp")
     @Description("Copy a file or a directory recursively")
-    @CommandCompletion("@directoriesOrFiles @directories @empty")
+    @CommandCompletion("@directoriesOrFiles @directories2 @empty")
     public void cp(CommandSender commandSender, String source, String destination) {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.copy(source, destination), commandSender);
     }
@@ -41,7 +41,7 @@ public class SSHCommand extends BaseCommand {
     @Subcommand("mv")
     @CommandAlias("mv")
     @Description("Move a file or a directory")
-    @CommandCompletion("@directoriesOrFiles @directories @empty")
+    @CommandCompletion("@directoriesOrFiles @directories2 @empty")
     public void mv(CommandSender commandSender, String source, String destination) {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.move(source, destination), commandSender);
     }
@@ -65,7 +65,7 @@ public class SSHCommand extends BaseCommand {
     @Subcommand("cat")
     @CommandAlias("cat")
     @Description("Display the content of a file")
-    @CommandCompletion("@files @empty")
+    @CommandCompletion("@directoriesOrFiles @empty")
     public void cat(CommandSender commandSender, String file) {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.readFile(file), commandSender);
     }
@@ -89,7 +89,7 @@ public class SSHCommand extends BaseCommand {
     @Subcommand("unzip")
     @CommandAlias("unzip")
     @Description("Unzip a file")
-    @CommandCompletion("@files @empty")
+    @CommandCompletion("@directoriesOrFiles @empty")
     public void unzip(CommandSender commandSender, String source, String destination) {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.unzip(source, destination), commandSender);
     }

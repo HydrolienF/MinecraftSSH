@@ -1,5 +1,7 @@
 package fr.formiko.minecraftssh;
 
+import fr.formiko.utils.FLUFiles;
+import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 import org.bukkit.command.CommandSender;
@@ -15,11 +17,17 @@ public class SSHUtils {
     }
     public static void runAndDisplayResult(BooleanSupplier booleanSupplier, CommandSender commandSender) {
         long startTime = System.currentTimeMillis();
-        if (booleanSupplier.getAsBoolean()) {
-            commandSender
-                    .sendMessage(Component.text("Success in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.GREEN));
-        } else {
-            commandSender.sendMessage(Component.text("Failure in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.RED));
+        try {
+            if (booleanSupplier.getAsBoolean()) {
+                commandSender
+                        .sendMessage(Component.text("Success in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.GREEN));
+            } else {
+                commandSender
+                        .sendMessage(Component.text("Failure in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.RED));
+            }
+        } catch (Exception e) {
+            commandSender.sendMessage(Component.text("Error in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.RED));
+            e.printStackTrace();
         }
     }
 
@@ -30,7 +38,14 @@ public class SSHUtils {
     }
     public static void runAndDisplayResult(Supplier<String> supplier, CommandSender commandSender) {
         runAndDisplayResult(() -> {
-            String message = supplier.get();
+            String message;
+            try {
+                message = supplier.get();
+            } catch (Exception e) {
+                commandSender.sendMessage(Component.text("Error", NamedTextColor.RED));
+                e.printStackTrace();
+                return false;
+            }
             if (message == null) {
                 return false;
             } else {
@@ -46,5 +61,14 @@ public class SSHUtils {
         }
         int exp = (int) (Math.log(bytes) / Math.log(1024));
         return String.format("%.1f %sB", bytes / Math.pow(1024, exp), "KMGTPE".charAt(exp - 1));
+    }
+
+    public static List<String> getDirectoriesAndFiles(String path) {
+        if (path == null || path.isEmpty() || !path.contains("/")) {
+            path = ".";
+        } else {
+            path = path.substring(0, path.lastIndexOf("/"));
+        }
+        return FLUFiles.listFiles(path);
     }
 }
