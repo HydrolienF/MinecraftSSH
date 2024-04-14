@@ -41,8 +41,11 @@ public class MinecraftSSHPlugin extends JavaPlugin {
             path = path.substring(0, path.lastIndexOf("/") + 1);
         }
         final String finalPath = path.equals(".") ? "" : path;
+        List<String> list = FLUFiles.listFiles(path);
+        if (list == null) {
+            return List.of();
+        }
         // return a list of absolute paths by adding the path to the file name
-        return FLUFiles.listFiles(path).stream().map(s -> finalPath + s).filter(s -> s.startsWith(initialPath)).filter(extraFilter)
-                .limit(10).toList();
+        return list.stream().map(s -> finalPath + s).filter(s -> s.startsWith(initialPath)).filter(extraFilter).limit(10).toList();
     }
 }
