@@ -21,6 +21,12 @@ public class SSHCommand extends BaseCommand {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.listFiles(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"),
                 commandSender);
     }
+    @Subcommand("ls")
+    @CommandAlias("ls")
+    @Description("List files in a directory")
+    @CommandCompletion("@directories @empty")
+    public void ls(CommandSender commandSender) { ls(commandSender, "."); }
+
     @Subcommand("lsr")
     @CommandAlias("lsr")
     @Description("List files in a directory recursively")
@@ -29,6 +35,11 @@ public class SSHCommand extends BaseCommand {
         SSHUtils.runAsynchronouslyAndDisplayResult(
                 () -> FLUFiles.listFilesRecursively(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"), commandSender);
     }
+    @Subcommand("lsr")
+    @CommandAlias("lsr")
+    @Description("List files in a directory recursively")
+    @CommandCompletion("@directories @empty")
+    public void lrs(CommandSender commandSender) { lsr(commandSender, "."); }
 
     @Subcommand("cp")
     @CommandAlias("cp")

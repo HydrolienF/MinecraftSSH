@@ -7,12 +7,12 @@ The aims of this plugin is to provide as much file edition command as possible. 
 
 All commands have tab completion with existing files and directories when it's uefull.
 
-Support **Paper** forks including **Folia**.
+Support **Paper** forks including **Folia** for version 1.18 to last. (See version compatibility in release)
+Older version than 1.18 won't be supported.
 
 ## Use
 
 Download last release .jar file and place it in your server directory `plugins/`.
-If your Java version is under 21, update it to 21 or newer.
 
 Write `/ssh ...` ingame
 
