@@ -5,11 +5,16 @@ I created this plugin to be able to copy a folder on my Minecraft server without
 
 The aims of this plugin is to provide as much file edition command as possible. If some commands are missing feel free to open a request issue or to send a pull request (both is better).
 
+All commands have tab completion with existing files and directories when it's uefull.
+
 Support **Paper** forks including **Folia**.
 
 ## Use
 
 Download last release .jar file and place it in your server directory `plugins/`.
+If your Java version is under 21, update it to 21 or newer.
+
+Write `/ssh ...` ingame
 
 ## Build
 
