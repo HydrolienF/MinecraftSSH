@@ -31,4 +31,4 @@ For example if you want to make a save of your world do `/cp world worldSave` or
 
 ## Build
 
-Build with `./gradlew assemble`. Jar will be in `build/libs/`.
+Build with `./gradlew assemble`. Plugin file will be in `build/libs/`.
