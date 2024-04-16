@@ -10,17 +10,18 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 public class SSHUtils {
     private SSHUtils() {}
-    public static void runAsynchronouslyAndDisplayResult(BooleanSupplier booleanSupplier, CommandSender commandSender) {
+    public static void runAsynchronouslyAndDisplayResult(BooleanSupplier booleanSupplier, CommandSender commandSender, String cmd) {
         new Thread(() -> {
-            runAndDisplayResult(booleanSupplier, commandSender);
+            runAndDisplayResult(booleanSupplier, commandSender, cmd);
         }).start();
     }
-    public static void runAndDisplayResult(BooleanSupplier booleanSupplier, CommandSender commandSender) {
+    public static void runAndDisplayResult(BooleanSupplier booleanSupplier, CommandSender commandSender, String cmd) {
         long startTime = System.currentTimeMillis();
         try {
             if (booleanSupplier.getAsBoolean()) {
                 commandSender
-                        .sendMessage(Component.text("Success in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.GREEN));
+                        .sendMessage(Component.text("Success in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.GREEN)
+                                + " for " + cmd);
             } else {
                 commandSender
                         .sendMessage(Component.text("Failure in " + (System.currentTimeMillis() - startTime) + "ms", NamedTextColor.RED));
@@ -31,12 +32,12 @@ public class SSHUtils {
         }
     }
 
-    public static void runAsynchronouslyAndDisplayResult(Supplier<String> supplier, CommandSender commandSender) {
+    public static void runAsynchronouslyAndDisplayResult(Supplier<String> supplier, CommandSender commandSender, String cmd) {
         new Thread(() -> {
-            runAndDisplayResult(supplier, commandSender);
+            runAndDisplayResult(supplier, commandSender, cmd);
         }).start();
     }
-    public static void runAndDisplayResult(Supplier<String> supplier, CommandSender commandSender) {
+    public static void runAndDisplayResult(Supplier<String> supplier, CommandSender commandSender, String cmd) {
         runAndDisplayResult(() -> {
             String message;
             try {
@@ -52,7 +53,7 @@ public class SSHUtils {
                 commandSender.sendMessage(Component.text(message));
                 return true;
             }
-        }, commandSender);
+        }, commandSender, cmd);
     }
 
     public static String byteToHumainReadableLenght(long bytes) {

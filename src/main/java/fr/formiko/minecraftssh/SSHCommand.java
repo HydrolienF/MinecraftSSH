@@ -19,7 +19,7 @@ public class SSHCommand extends BaseCommand {
     @CommandCompletion("@directories @empty")
     public void ls(CommandSender commandSender, String directory) {
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.listFiles(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"),
-                commandSender);
+                commandSender, "ls " + directory);
     }
     @Subcommand("ls")
     @CommandAlias("ls")
@@ -33,7 +33,8 @@ public class SSHCommand extends BaseCommand {
     @CommandCompletion("@directories @empty")
     public void lsr(CommandSender commandSender, String directory) {
         SSHUtils.runAsynchronouslyAndDisplayResult(
-                () -> FLUFiles.listFilesRecursively(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"), commandSender);
+                () -> FLUFiles.listFilesRecursively(directory).stream().sorted().reduce("", (a, b) -> a + b + "\n"), commandSender,
+                "lsr " + directory);
     }
     @Subcommand("lsr")
     @CommandAlias("lsr")
@@ -46,7 +47,8 @@ public class SSHCommand extends BaseCommand {
     @Description("Copy a file or a directory recursively")
     @CommandCompletion("@directoriesOrFiles @directories2 @empty")
     public void cp(CommandSender commandSender, String source, String destination) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.copy(source, destination), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.copy(source, destination), commandSender,
+                "cp " + source + " " + destination);
     }
 
     @Subcommand("mv")
@@ -54,7 +56,8 @@ public class SSHCommand extends BaseCommand {
     @Description("Move a file or a directory")
     @CommandCompletion("@directoriesOrFiles @directories2 @empty")
     public void mv(CommandSender commandSender, String source, String destination) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.move(source, destination), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.move(source, destination), commandSender,
+                "mv " + source + " " + destination);
     }
 
     @Subcommand("rm")
@@ -62,7 +65,7 @@ public class SSHCommand extends BaseCommand {
     @Description("Remove a file or a directory recursively")
     @CommandCompletion("@directoriesOrFiles @empty")
     public void rm(CommandSender commandSender, String target) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.delete(target), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.delete(target), commandSender, "rm " + target);
     }
 
     @Subcommand("mkdir")
@@ -70,7 +73,7 @@ public class SSHCommand extends BaseCommand {
     @Description("Create a directory")
     @CommandCompletion("@directories @empty")
     public void mkdir(CommandSender commandSender, String directory) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.createDirectory(directory), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.createDirectory(directory), commandSender, "mkdir " + directory);
     }
 
     @Subcommand("cat")
@@ -78,7 +81,7 @@ public class SSHCommand extends BaseCommand {
     @Description("Display the content of a file")
     @CommandCompletion("@directoriesOrFiles @empty")
     public void cat(CommandSender commandSender, String file) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.readFile(file), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.readFile(file), commandSender, "cat " + file);
     }
 
     @Subcommand("wget")
@@ -86,7 +89,8 @@ public class SSHCommand extends BaseCommand {
     @Description("Download a file")
     @CommandCompletion("@empty @directories2 @empty")
     public void wget(CommandSender commandSender, String url, String destination) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.download(url, destination), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.download(url, destination), commandSender,
+                "wget " + url + " " + destination);
     }
 
     @Subcommand("zip")
@@ -94,7 +98,8 @@ public class SSHCommand extends BaseCommand {
     @Description("Zip a file or a directory")
     @CommandCompletion("@directoriesOrFiles @empty")
     public void zip(CommandSender commandSender, String source, String destination) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.zip(source, destination), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.zip(source, destination), commandSender,
+                "zip " + source + " " + destination);
     }
 
     @Subcommand("unzip")
@@ -102,7 +107,8 @@ public class SSHCommand extends BaseCommand {
     @Description("Unzip a file")
     @CommandCompletion("@directoriesOrFiles @empty")
     public void unzip(CommandSender commandSender, String source, String destination) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.unzip(source, destination), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.unzip(source, destination), commandSender,
+                "unzip " + source + " " + destination);
     }
 
     @Subcommand("size")
@@ -110,7 +116,8 @@ public class SSHCommand extends BaseCommand {
     @Description("Get the size of a file or a directory")
     @CommandCompletion("@directoriesOrFiles @boolean @empty")
     public void size(CommandSender commandSender, String target) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> SSHUtils.byteToHumainReadableLenght(FLUFiles.getSize(target)), commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> SSHUtils.byteToHumainReadableLenght(FLUFiles.getSize(target)), commandSender,
+                "size " + target);
     }
 
     @Subcommand("sizeInBytes")
@@ -118,6 +125,6 @@ public class SSHCommand extends BaseCommand {
     @Description("Get the size of a file or a directory")
     @CommandCompletion("@directoriesOrFiles @boolean @empty")
     public void sizeInBytes(CommandSender commandSender, String target) {
-        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.getSize(target) + " bytes", commandSender);
+        SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.getSize(target) + " bytes", commandSender, "sizeInBytes " + target);
     }
 }
