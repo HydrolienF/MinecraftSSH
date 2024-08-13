@@ -17,6 +17,7 @@ All commands have tab completion with existing files and directories when it's u
 
 Support **Paper** forks including **Folia** for version 1.18 to last. (See version compatibility in releases)
 Older version than 1.18 won't be supported.
+Since version 1.1.1, this plugin require Java 21. If you are on an old version before 1.20.5, you might need to update to Java 21 or use the 1.1.0 version.
 
 ## Use
 
