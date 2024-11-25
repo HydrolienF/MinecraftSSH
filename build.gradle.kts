@@ -2,13 +2,13 @@ plugins {
     id("java")
     id("io.github.goooler.shadow") version "8.1.7"
     id("maven-publish") // Add ./gradlew publishToMavenLocal
-    id("xyz.jpenilla.run-paper") version "2.3.0"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
     id("org.sonarqube") version "5.0.0.4638"
 }
 
 group="fr.formiko.minecraftssh"
-version="1.1.1"
-description="Display banners as flags."
+version="1.1.2"
+description="Allow some shell commands as if minecraft console was an ssh connexion."
 
 repositories {
     mavenCentral()
@@ -18,10 +18,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.2")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("com.github.FormikoLudo:Utils:0.0.7")
+    implementation("com.github.FormikoLudo:Utils:0.0.9")
 }
 
 java {
@@ -62,7 +62,7 @@ tasks {
         // Configure the Minecraft version for our task.
         // This is the only required configuration besides applying the plugin.
         // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.21.1")
+        minecraftVersion("1.21.3")
     }
 }
 

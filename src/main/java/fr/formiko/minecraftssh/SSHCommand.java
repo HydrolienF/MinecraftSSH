@@ -96,10 +96,26 @@ public class SSHCommand extends BaseCommand {
     @Subcommand("zip")
     @CommandAlias("zip")
     @Description("Zip a file or a directory")
-    @CommandCompletion("@directoriesOrFiles @empty")
-    public void zip(CommandSender commandSender, String source, String destination) {
+    @CommandCompletion("@directoriesOrFiles @directoriesOrFiles @empty")
+    public void zip(CommandSender commandSender, String s1, String s2) {
+        String source;
+        String destination;
+        if(s1.endsWith(".zip")) {
+            source = s2;
+            destination = s1;
+        } else {
+            source = s1;
+            destination = s2;
+        }
         SSHUtils.runAsynchronouslyAndDisplayResult(() -> FLUFiles.zip(source, destination), commandSender,
                 "zip " + source + " " + destination);
+    }
+    @Subcommand("zip")
+    @CommandAlias("zip")
+    @Description("Zip a file or a directory")
+    @CommandCompletion("@directoriesOrFiles @directoriesOrFiles @empty")
+    public void zip(CommandSender commandSender, String s1) {
+        zip(commandSender, s1, s1 + ".zip");
     }
 
     @Subcommand("unzip")
