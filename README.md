@@ -6,6 +6,8 @@
 [ ![download][] ][downloadLink]
 [ ![discord-shield][] ][discord-invite]
 
+[**Discord**](discord-invite) | [**Hangar**](https://hangar.papermc.io/Hydrolien/MinecraftSSH) | [**Spigot**](https://www.spigotmc.org/resources/minecraftssh.116201/) | [**GitHub**](https://github.com/Hydrolien/MinecraftSSH)
+
 # MinecraftSSH
 Minecraft plugin to have basic ssh commands ingame.
 
