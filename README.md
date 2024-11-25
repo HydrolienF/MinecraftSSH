@@ -27,6 +27,10 @@ Write `/ssh ...` ingame to see all available commands. Each command have a short
 
 For example if you want to make a save of your world do `/cp world worldSave` or `/zip world world.zip`
 
+## Non-Goals
+
+There will be no auto backup system as there is already great plugins for that as [Backuper](https://github.com/DVDishka/Backuper).
+
 ## Statistics
 [![bStats Graph Data](https://bstats.org/signatures/bukkit/MinecraftSSH.svg)](https://bstats.org/plugin/bukkit/MinecraftSSH/21583)
 
