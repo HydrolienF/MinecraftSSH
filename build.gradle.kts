@@ -9,11 +9,11 @@ plugins {
 }
 
 group="fr.formiko.minecraftssh"
-version="1.1.4"
+version="1.1.5"
 description="Allow some shell commands as if minecraft console was an ssh connexion."
 java.sourceCompatibility = JavaVersion.VERSION_21
-var mainMinecraftVersion = "1.21.7"
-val supportedMinecraftVersions = "1.18 - 1.21.7"
+var mainMinecraftVersion = "1.21.8"
+val supportedMinecraftVersions = "1.18 - 1.21.8"
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:$mainMinecraftVersion-R0.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.FormikoLudo:Utils:0.0.9")
@@ -184,7 +184,7 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
 
 // Do an array of game versions from supportedMinecraftVersions
 fun expandMinecraftVersions(range: String): List<String> {
-    val latestPatches = mapOf("1.18" to 2, "1.19" to 4, "1.20" to 6, "1.21" to 7)
+    val latestPatches = mapOf("1.18" to 2, "1.19" to 4, "1.20" to 6, "1.21" to 8)
 
     fun String.toMinorAndPatch() = split('.').let {
         if (it.size == 2) it.joinToString(".") to 0 else "${it[0]}.${it[1]}" to it[2].toInt()
