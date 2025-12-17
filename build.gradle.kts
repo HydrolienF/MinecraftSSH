@@ -9,7 +9,7 @@ plugins {
 }
 
 group="fr.formiko.minecraftssh"
-version="1.1.9"
+version="1.1.10"
 description="Allow some shell commands as if minecraft console was an ssh connexion."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.11"
@@ -184,7 +184,7 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
 
 // Do an array of game versions from supportedMinecraftVersions
 fun expandMinecraftVersions(range: String): List<String> {
-    val latestPatches = mapOf("1.18" to 2, "1.19" to 4, "1.20" to 6, "1.21" to 1000)
+    val latestPatches = mapOf("1.18" to 2, "1.19" to 4, "1.20" to 6, "1.21" to 10)
 
     fun String.toMinorAndPatch() = split('.').let {
         if (it.size == 2) it.joinToString(".") to 0 else "${it[0]}.${it[1]}" to it[2].toInt()
